@@ -26,6 +26,7 @@ El proyecto consiste en desarrollar un servidor backend para un eCommerce llamad
 Para instalar y ejecutar el proyecto localmente, sigue estos pasos:
 
 1. Clona el repositorio desde GitHub.
+
 2. ## 1.2 Manual de Instalación y Deployment
 
 Para comenzar con el proyecto, sigue estos pasos:
@@ -95,3 +96,5 @@ Para comenzar con el proyecto, sigue estos pasos:
         ```
         sequelize db:migrate
         ```
+
+7. Una vez hayas iniciado el servidor, podrás acceder a la aplicación desde tu navegador web utilizando la URL local proporcionada. Te recomendamos utilizar Postman para probar los distintos endpoints.
