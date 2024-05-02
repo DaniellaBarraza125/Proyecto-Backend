@@ -21,10 +21,10 @@ const CategoryController = {
             });
             const product = await Product.findByPk(req.params.id);
             product.setCategories(req.body.CategoryId);
-            res.send("Producto actualizado con éxito");
+            res.send("Categoría actualizado con éxito");
         } catch (error) {
             res.status(500).send({
-                message: "no ha sido posible actualizado el libro",
+                message: "no ha sido posible actualizado la categoría",
             });
         }
     },
