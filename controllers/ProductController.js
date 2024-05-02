@@ -49,6 +49,24 @@ const ProductController = {
             res.status(500).send(error);
         }
     },
+    async update(req, res) {
+        try {
+            await Product.update(req.body, {
+                where: {
+                    id: req.params.id,
+                },
+            });
+            await CategoryProduct.update(req.body, {
+                where: {
+                    ProductId: req.params.id,
+                },
+            });
+            res.send({ message: "Producto se ha actualizado con éxito" });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send(error);
+        }
+    },
 };
 
 module.exports = ProductController;
