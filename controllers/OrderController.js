@@ -1,10 +1,17 @@
+const { NOW } = require("sequelize");
 const { Order } = require("../models/index.js");
 
 const OrderController = {
     async create(req, res) {
         try {
-            req.body.UserId = req.user.id;
-            const order = await Order.create(req.body);
+            const deliveryDate = new Date();
+            deliveryDate.setDate(deliveryDate.getDate() + 4);
+            const order = await Order.create({
+                ...req.body,
+                delivery: deliveryDate,
+                status: "placed",
+            });
+
             res.status(201).send({
                 message: "Pedido creado con éxito",
                 order,

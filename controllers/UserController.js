@@ -48,6 +48,24 @@ const UserController = {
             res.status(500).send(error);
         }
     },
+    async delete(req, res) {
+        try {
+            await User.destroy({
+                where: {
+                    id: req.params.id,
+                },
+            });
+            await Order.destroy({
+                where: {
+                    UserId: req.params.id,
+                },
+            });
+            res.send("El usuario ha sido eliminado con éxito");
+        } catch (error) {
+            console.error(error);
+            res.status(500).send(error);
+        }
+    },
     async login(req, res) {
         try {
             const user = await User.findOne({
