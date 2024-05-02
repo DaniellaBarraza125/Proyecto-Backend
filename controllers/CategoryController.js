@@ -1,4 +1,4 @@
-const { Category, Product } = require("../models/index.js");
+const { Category, Product, CategoryProduct } = require("../models/index.js");
 
 const CategoryController = {
     async create(req, res) {
@@ -26,6 +26,30 @@ const CategoryController = {
             res.status(500).send({
                 message: "no ha sido posible actualizado la categoría",
             });
+        }
+    },
+    async delete(req, res) {
+        try {
+            const categoryId = req.params.id;
+
+            // Eliminar la categoría
+            await Category.destroy({
+                where: {
+                    id: categoryId,
+                },
+            });
+
+            // Luego, eliminar los registros asociados en la tabla intermedia
+            CategoryProduct.destroy({
+                where: {
+                    CategoryId: categoryId,
+                },
+            });
+
+            res.send({ message: "Categoría se ha eliminado con éxito" });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send(error);
         }
     },
 };
