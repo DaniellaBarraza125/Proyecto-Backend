@@ -4,7 +4,8 @@
     "password": "Paquemasjoda123.",
     "database": "My_Ecommerce",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "jwt_secret": "salsabolognesa"
   },
   "test": {
     "username": "root",

@@ -4,7 +4,8 @@
     "password": "tu contraseña.",
     "database": "My_Ecommerce",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "jwt_secret": "tu_secreto"
   },
   "test": {
     "username": "root",
