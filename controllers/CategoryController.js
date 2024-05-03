@@ -1,5 +1,6 @@
 const { Category, Product, CategoryProduct } = require("../models/index.js");
 const { Op } = require("sequelize");
+const { getById } = require("./ProductController.js");
 
 const CategoryController = {
     async create(req, res) {
@@ -51,6 +52,26 @@ const CategoryController = {
             const categories = await Category.findAll({
                 where: {
                     name: { [Op.like]: `%${req.params.category}%` },
+                },
+                include: [
+                    {
+                        model: Product,
+                        attributes: ["name"],
+                        through: { attributes: [] },
+                    },
+                ],
+            });
+            res.send(categories);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send(error);
+        }
+    },
+    async getById(req, res) {
+        try {
+            const categories = await Category.findOne({
+                where: {
+                    id: req.params.id,
                 },
                 include: [
                     {

@@ -8,7 +8,7 @@ router.post("/", authentication, isAdmin, CategoryController.create);
 router.put("/id/:id", CategoryController.update);
 router.get("/category/:category", CategoryController.getByCategory);
 router.get("/", CategoryController.getAll);
-
+router.get("/id/:id", CategoryController.getById);
 router.delete("/id/:id", CategoryController.delete);
 
 module.exports = router;
