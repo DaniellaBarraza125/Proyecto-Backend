@@ -1,7 +1,7 @@
-const { User, Token } = require("../models/index.js");
+const { User, Token, Sequelize } = require("../models/index.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const user = require("../models/user.js");
+const { Op } = Sequelize;
 const { jwt_secret } = require("../config/config.json")["development"];
 
 const UserController = {
@@ -11,7 +11,7 @@ const UserController = {
             const user = await User.create({
                 ...req.body,
                 password,
-                role: "user",
+                // role: "user",
             });
             res.status(201).send({ message: "Usuario creado con éxito", user });
         } catch (error) {
