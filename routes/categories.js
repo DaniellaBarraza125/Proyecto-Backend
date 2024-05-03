@@ -4,8 +4,11 @@ const { authentication, isAdmin } = require("../middleware/authentication");
 
 const router = express.Router();
 
-router.post("/", authentication, CategoryController.create);
+router.post("/", authentication, isAdmin, CategoryController.create);
 router.put("/id/:id", CategoryController.update);
+router.get("/category/:category", CategoryController.getByCategory);
+router.get("/", CategoryController.getAll);
+
 router.delete("/id/:id", CategoryController.delete);
 
 module.exports = router;

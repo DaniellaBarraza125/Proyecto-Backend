@@ -4,13 +4,13 @@ const { Order, Product, OrderCategory } = require("../models/index.js");
 const OrderController = {
     async create(req, res) {
         try {
-            const dlvDate = new Date();
+            const deliveryDate = new Date();
             deliveryDate.setDate(deliveryDate.getDate() + 4);
 
             const order = await Order.create({
                 ...req.body,
                 //cuando termine autentificacion puedo poner UserId = req.body.UserId para asi no tener que escribirlo
-                delivery: dlvDate,
+                delivery: deliveryDate,
                 status: "placed",
             });
             order.addProduct(req.body.ProductId);

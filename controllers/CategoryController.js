@@ -1,4 +1,5 @@
 const { Category, Product, CategoryProduct } = require("../models/index.js");
+const { Op } = require("sequelize");
 
 const CategoryController = {
     async create(req, res) {
@@ -28,11 +29,47 @@ const CategoryController = {
             });
         }
     },
+    async getAll(req, res) {
+        try {
+            const categories = await Category.findAll({
+                include: [
+                    {
+                        model: Product,
+                        attributes: ["name"],
+                        through: { attributes: [] },
+                    },
+                ],
+            });
+            res.send(categories);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send(error);
+        }
+    },
+    async getByCategory(req, res) {
+        try {
+            const categories = await Category.findAll({
+                where: {
+                    name: { [Op.like]: `%${req.params.category}%` },
+                },
+                include: [
+                    {
+                        model: Product,
+                        attributes: ["name"],
+                        through: { attributes: [] },
+                    },
+                ],
+            });
+            res.send(categories);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send(error);
+        }
+    },
     async delete(req, res) {
         try {
             const categoryId = req.params.id;
 
-            // Eliminar la categoría
             await Category.destroy({
                 where: {
                     id: categoryId,
