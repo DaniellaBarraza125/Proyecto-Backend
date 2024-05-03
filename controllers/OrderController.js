@@ -1,5 +1,6 @@
 const { NOW } = require("sequelize");
 const { Order, Product, OrderCategory } = require("../models/index.js");
+const { trace } = require("../routes/users.js");
 
 const OrderController = {
     async create(req, res) {
@@ -23,6 +24,20 @@ const OrderController = {
             console.error(error);
             res.status(500).send(error);
         }
+    },
+    async getAll(req, res) {
+        try {
+            const orders = await Order.findAll({
+                include: [
+                    {
+                        model: Product,
+                        attributes: ["name"],
+                        through: { attributes: [] },
+                    },
+                ],
+            });
+            res.send(orders);
+        } catch (error) {}
     },
 };
 

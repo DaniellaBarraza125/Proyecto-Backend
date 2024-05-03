@@ -4,5 +4,6 @@ const { authentication, isAdmin } = require("../middleware/authentication");
 const router = express.Router();
 
 router.post("/", authentication, OrderController.create);
+router.get("/", authentication, OrderController.getAll);
 
 module.exports = router;
