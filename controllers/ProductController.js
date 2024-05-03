@@ -38,7 +38,6 @@ const ProductController = {
                 where: {
                     id: req.params.id,
                 },
-
                 include: [
                     {
                         model: Category,
@@ -138,7 +137,7 @@ const ProductController = {
             });
             await CategoryProduct.destroy({
                 where: {
-                    CategoryId: req.params.id,
+                    ProductId: req.params.id,
                 },
             });
             res.send({ message: "Producto se ha eliminado con éxito" });
