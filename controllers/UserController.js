@@ -42,7 +42,7 @@ const UserController = {
     },
     async getByName(req, res) {
         try {
-            const user = await User.findOne({
+            const user = await User.findAll({
                 where: {
                     name: req.params.name,
                 },
