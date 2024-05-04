@@ -1,4 +1,11 @@
-const { User, Token, Sequelize } = require("../models/index.js");
+const {
+    User,
+    Token,
+    Sequelize,
+    Product,
+    OrderProduct,
+    Order,
+} = require("../models/index.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { Op } = Sequelize;
@@ -112,6 +119,33 @@ const UserController = {
             res.status(500).send({
                 message: "hubo un problema al tratar de desconectarte",
             });
+        }
+    },
+    async showUser(req, res) {
+        try {
+            const user = await User.findByPk(req.user.id, {
+                include: [
+                    {
+                        model: Order,
+                        attributes: ["id", "status"],
+                        include: [
+                            {
+                                model: Product,
+                                attributes: ["name"],
+                                through: { attributes: [] },
+                            },
+                        ],
+                    },
+                ],
+            });
+            if (user) {
+                res.send(user);
+            } else {
+                res.status(404).send("User not found");
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(500).send(error);
         }
     },
 };
