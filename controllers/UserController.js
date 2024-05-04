@@ -3,7 +3,6 @@ const {
     Token,
     Sequelize,
     Product,
-    OrderProduct,
     Order,
 } = require("../models/index.js");
 const bcrypt = require("bcryptjs");
