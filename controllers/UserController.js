@@ -62,9 +62,6 @@ const UserController = {
     },
     async delete(req, res) {
         try {
-            if (!req.params.id) {
-                res.send("el usuario no existe");
-            }
             await User.destroy({
                 where: {
                     id: req.params.id,
