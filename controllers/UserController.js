@@ -4,6 +4,7 @@ const {
     Sequelize,
     Product,
     Order,
+    Review,
 } = require("../models/index.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -143,6 +144,15 @@ const UserController = {
                                 model: Product,
                                 attributes: ["name"],
                                 through: { attributes: [] },
+                            },
+                        ],
+                    },
+                    {
+                        model: Review,
+                        include: [
+                            {
+                                model: Product,
+                                attributes: ["name"],
                             },
                         ],
                     },

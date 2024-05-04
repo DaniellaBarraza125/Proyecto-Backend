@@ -1,4 +1,9 @@
-const { Product, Category, CategoryProduct } = require("../models/index.js");
+const {
+    Product,
+    Category,
+    CategoryProduct,
+    Review,
+} = require("../models/index.js");
 const { Op } = require("sequelize");
 
 const ProductController = {
@@ -24,6 +29,10 @@ const ProductController = {
                         attributes: ["name"],
                         through: { attributes: [] },
                     },
+                    {
+                        model: Review,
+                        attributes: ["value", "review"],
+                    },
                 ],
             });
             res.send(products);
@@ -43,6 +52,10 @@ const ProductController = {
                         model: Category,
                         attributes: ["name"],
                         through: { attributes: [] },
+                    },
+                    {
+                        model: Review,
+                        attributes: ["value", "review"],
                     },
                 ],
             });
@@ -76,15 +89,17 @@ const ProductController = {
         try {
             const products = await Product.findAll({
                 where: {
-                    price: req.params.price,
+                    name: { [Op.like]: `%${req.params.price}%` },
                 },
             });
+
             if (!products) {
                 return res
                     .status(404)
                     .send({ message: "producto no encontrado" });
             }
-            res.send(products);
+
+            res.send({ message: "producto encontrado", products });
         } catch (error) {
             console.error(error);
             res.status(500).send(error);

@@ -20,13 +20,16 @@ module.exports = (sequelize, DataTypes) => {
             value: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
-                len: [1, 5],
-                isNumeric: true,
                 validate: {
-                    notNull: {
-                        msg: "Por favor introduzca una calificacion",
+                    isInt: { msg: "Debe ser un numero entero" },
+                    min: {
+                        args: [1],
+                        msg: "Debe ser un numero mayor o igual a 1",
                     },
-                    Len: { msg: "la calificaicon debe ser de 1 al 5" },
+                    max: {
+                        args: [5],
+                        msg: "Debe ser un numero menor o igual a 5",
+                    },
                 },
             },
         },
