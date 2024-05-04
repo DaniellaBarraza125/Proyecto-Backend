@@ -76,17 +76,15 @@ const ProductController = {
         try {
             const products = await Product.findAll({
                 where: {
-                    name: { [Op.like]: `%${req.params.price}%` },
+                    price: req.params.price,
                 },
             });
-
             if (!products) {
                 return res
                     .status(404)
                     .send({ message: "producto no encontrado" });
             }
-
-            res.send({ message: "producto encontrado", products });
+            res.send(products);
         } catch (error) {
             console.error(error);
             res.status(500).send(error);

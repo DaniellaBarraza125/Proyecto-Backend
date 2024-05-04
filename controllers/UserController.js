@@ -62,12 +62,20 @@ const UserController = {
     },
     async delete(req, res) {
         try {
+            if (!req.params.id) {
+                res.send("el usuario no existe");
+            }
             await User.destroy({
                 where: {
                     id: req.params.id,
                 },
             });
             await Order.destroy({
+                where: {
+                    UserId: req.params.id,
+                },
+            });
+            await Token.destroy({
                 where: {
                     UserId: req.params.id,
                 },
@@ -132,7 +140,7 @@ const UserController = {
                 include: [
                     {
                         model: Order,
-                        attributes: ["id", "status"],
+                        attributes: ["status"],
                         include: [
                             {
                                 model: Product,
