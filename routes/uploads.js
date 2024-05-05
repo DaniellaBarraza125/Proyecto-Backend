@@ -5,6 +5,11 @@ const router = express.Router();
 
 const upload = multer({ dest: "uploads/" });
 
-router.post("/single", upload.single("profile"), UploadController.profile);
+router.post("/profile", upload.single("profile"), UploadController.profile);
+router.post(
+    "/produtcs",
+    upload.array("products", 5),
+    UploadController.products,
+);
 
 module.exports = router;
