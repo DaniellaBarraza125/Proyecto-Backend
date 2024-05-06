@@ -14,5 +14,4 @@ const upload = multer({ storage });
 const singlePic = upload.single("profile");
 const multiplePics = upload.array("photos", 5);
 
-module.exports = singlePic;
-module.exports = multiplePics;
+module.exports = { singlePic, multiplePics };
