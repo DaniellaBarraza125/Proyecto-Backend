@@ -9,10 +9,13 @@ const {
 const ReviewController = {
     async create(req, res) {
         try {
-            const review = await Review.create(req.body);
+            const file = req.file.path;
+
+            const review = await Review.create({ ...req.body, filePath: file });
             res.status(201).send({
                 message: "Review publicada",
                 review,
+                file,
             });
         } catch (error) {
             console.error(error);

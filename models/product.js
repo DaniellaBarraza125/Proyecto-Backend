@@ -37,6 +37,9 @@ module.exports = (sequelize, DataTypes) => {
                     },
                 },
             },
+            filePath: {
+                type: DataTypes.STRING,
+            },
         },
         {
             sequelize,

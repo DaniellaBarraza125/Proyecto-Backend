@@ -20,12 +20,18 @@ const UserController = {
                     .send({ msg: "Por favor escribe tu contraseña" });
             }
             const password = await bcrypt.hashSync(req.body.password, 10);
+            const file = req.file.path;
             const user = await User.create({
                 ...req.body,
                 password,
                 role: "user",
+                filePath: file,
             });
-            res.status(201).send({ message: "Usuario creado con éxito", user });
+            res.status(201).send({
+                message: "Usuario creado con éxito",
+                user,
+                file,
+            });
         } catch (error) {
             next(error);
         }

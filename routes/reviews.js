@@ -1,8 +1,9 @@
 const express = require("express");
 const ReviewController = require("../controllers/ReviewControllers");
+const { multiplePics } = require("../middleware/upload");
 const router = express.Router();
 
-router.post("/", ReviewController.create);
+router.post("/", multiplePics, ReviewController.create);
 router.get("/", ReviewController.getAll);
 router.delete("/id/:id", ReviewController.delete);
 

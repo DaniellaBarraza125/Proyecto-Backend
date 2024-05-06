@@ -8,9 +8,13 @@ const { Op } = require("sequelize");
 
 const ProductController = {
     async create(req, res, next) {
-        const file = req.file;
         try {
-            const product = await Product.create(req.body);
+            const file = req.file.path;
+
+            const product = await Product.create({
+                ...req.body,
+                filePath: file,
+            });
             product.addCategory(req.body.CategoryId);
             res.status(201).send({
                 message: "Producto creado con éxito",
