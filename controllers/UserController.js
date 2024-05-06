@@ -28,8 +28,6 @@ const UserController = {
             res.status(201).send({ message: "Usuario creado con éxito", user });
         } catch (error) {
             next(error);
-            console.error(error);
-            res.status(500).send(error);
         }
     },
     async getAll(req, res) {
@@ -84,7 +82,7 @@ const UserController = {
             res.status(500).send(error);
         }
     },
-    async login(req, res) {
+    async login(req, res, next) {
         try {
             const user = await User.findOne({
                 where: {
@@ -110,8 +108,7 @@ const UserController = {
             Token.create({ token, UserId: user.id });
             res.send({ message: "Bienvenid@ " + user.name, user, token });
         } catch (error) {
-            console.error(error);
-            res.status(500).send(error);
+            next(error);
         }
     },
     async logout(req, res) {

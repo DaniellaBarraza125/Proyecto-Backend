@@ -3,15 +3,14 @@ const { Op } = require("sequelize");
 const { getById } = require("./ProductController.js");
 
 const CategoryController = {
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             const category = await Category.create(req.body);
             res.status(201).send({
                 message: `Categoría ${category.name} creada con éxito`,
             });
         } catch (error) {
-            console.error(error);
-            res.status(500).send(error);
+            next(error);
         }
     },
     async update(req, res) {

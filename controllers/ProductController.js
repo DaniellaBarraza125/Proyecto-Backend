@@ -7,17 +7,18 @@ const {
 const { Op } = require("sequelize");
 
 const ProductController = {
-    async create(req, res) {
+    async create(req, res, next) {
+        const file = req.file;
         try {
             const product = await Product.create(req.body);
             product.addCategory(req.body.CategoryId);
             res.status(201).send({
                 message: "Producto creado con éxito",
                 product,
+                file,
             });
         } catch (error) {
-            console.error(error);
-            res.status(500).send(error);
+            next(error);
         }
     },
     async getAll(req, res) {

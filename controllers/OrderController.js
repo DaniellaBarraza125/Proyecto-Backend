@@ -3,7 +3,7 @@ const { Order, Product, OrderCategory } = require("../models/index.js");
 const { trace } = require("../routes/users.js");
 
 const OrderController = {
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             const deliveryDate = new Date();
             deliveryDate.setDate(deliveryDate.getDate() + 4);
@@ -21,8 +21,7 @@ const OrderController = {
                 order,
             });
         } catch (error) {
-            console.error(error);
-            res.status(500).send(error);
+            next(error);
         }
     },
     async getAll(req, res) {
