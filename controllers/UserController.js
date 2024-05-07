@@ -14,23 +14,26 @@ const { jwt_secret } = require("../config/config.json")["development"];
 const UserController = {
     async create(req, res, next) {
         try {
+            if (!req.body.name) {
+                return res
+                    .status(400)
+                    .send({ msg: "Por favor escribe tu nombre" });
+            }
             if (!req.body.password) {
                 return res
                     .status(400)
                     .send({ msg: "Por favor escribe tu contraseña" });
             }
             const password = await bcrypt.hashSync(req.body.password, 10);
-            const file = req.file.path;
             const user = await User.create({
                 ...req.body,
                 password,
                 role: "user",
-                filePath: file,
+                // filePath: file,
             });
             res.status(201).send({
                 message: "Usuario creado con éxito",
                 user,
-                file,
             });
         } catch (error) {
             next(error);

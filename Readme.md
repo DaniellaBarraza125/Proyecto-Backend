@@ -19,7 +19,11 @@ El proyecto consiste en desarrollar un servidor backend para un eCommerce llamad
 -   MySQL
 -   Nodemon
 
-## Imágenes
+## Ejemplos
+
+![Ejemplo de vista de productos (endPoint /products)](<img src="./screenshotShop.png">){ width=500px }
+![Ejemplo de vista usuario creado (endPoint /users](<img src="./screemshotUsuario.png">){ width=500px }
+![Ejemplo de vista login (endPoint /users/login](<img src="./screenshotLogin.png">){ width=500px }
 
 ## Manual de Instalación y Deployment
 

@@ -5,7 +5,7 @@ const { singlePic } = require("../middleware/upload");
 
 const router = express.Router();
 
-router.post("/", singlePic, UserController.create);
+router.post("/", UserController.create);
 router.get("/", UserController.getAll);
 router.get("/name/:name", UserController.getByName);
 router.post("/login", UserController.login);

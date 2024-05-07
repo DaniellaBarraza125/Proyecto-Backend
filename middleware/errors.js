@@ -2,9 +2,9 @@ const handleValidationError = (err, res) => {
     let errors = err.errors.map((el) => el.message);
     if (errors.length > 1) {
         const msgErr = errors.join(" || ");
-        res.status(400).send({ messages: msgErr });
+        res.status(400).send({ msg: msgErr });
     } else {
-        res.status(400).send({ messages: errors });
+        res.status(400).send({ msg: errors });
     }
 };
 
