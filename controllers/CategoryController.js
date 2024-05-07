@@ -55,8 +55,6 @@ const CategoryController = {
                 include: [
                     {
                         model: Product,
-                        attributes: ["name"],
-                        through: { attributes: [] },
                     },
                 ],
             });

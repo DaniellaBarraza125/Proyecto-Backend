@@ -13,17 +13,35 @@ El proyecto consiste en desarrollar un servidor backend para un eCommerce llamad
 
 ## Tecnologías Empleadas
 
--   Node.js
--   Express.js
--   Sequelize
--   MySQL
--   Nodemon
+-   **Node.js**
+    -   **Nodemon** (para reiniciar automáticamente el servidor durante el desarrollo)
+-   **Express.js**
+    -   `express.static` (para servir archivos estáticos)
+    -   `Express.Router` (para crear rutas modulares en la aplicación)
+    -   **Multer** (para el manejo de archivos en formularios HTML)
+    -   CORS (Cross-Origin Resource Sharing)
+-   **Sequelize**
+-   **MySQL**
+    -   **mysql2** (un cliente MySQL para Node.js compatible con Promesas)
+-   **Postman**
 
 ## Ejemplos
 
-![Ejemplo de vista de productos (endPoint /products)](<img src="./screenshotShop.png">){ width=500px }
-![Ejemplo de vista usuario creado (endPoint /users](<img src="./screemshotUsuario.png">){ width=500px }
-![Ejemplo de vista login (endPoint /users/login](<img src="./screenshotLogin.png">){ width=500px }
+![Ejemplo de vista de productos (endPoint /products)]
+
+<img src="./screenshotShop.png" alt="Ejemplo de vista de productos (endPoint /products)" width="500px">
+
+![Ejemplo de botones Sort (endPoint /products/orderByDesc(orderByAsc))]
+
+<img src="./screenshotSort.png" alt="Ejemplo de vista login (endPoint /users/login)" width="500px">
+
+![Ejemplo de vista usuario creado (endPoint /users)]
+
+<img src="./screemshotUsuario.png" alt="Ejemplo de vista usuario creado (endPoint /users)" width="500px">
+
+![Ejemplo de vista login (endPoint /users/login)]
+
+<img src="./screenshotLogin.png" alt="Ejemplo de vista login (endPoint /users/login)" width="500px">
 
 ## Manual de Instalación y Deployment
 

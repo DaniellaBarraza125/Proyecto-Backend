@@ -94,7 +94,7 @@ const ProductController = {
         try {
             const products = await Product.findAll({
                 where: {
-                    name: { [Op.like]: `%${req.params.price}%` },
+                    price: req.params.price,
                 },
             });
 
@@ -104,7 +104,7 @@ const ProductController = {
                     .send({ message: "producto no encontrado" });
             }
 
-            res.send({ message: "producto encontrado", products });
+            res.send(products);
         } catch (error) {
             console.error(error);
             res.status(500).send(error);
@@ -166,31 +166,41 @@ const ProductController = {
     },
     async update(req, res) {
         try {
-            const file = req.file;
+            // const file = req.file;
             const product = await Product.findOne({
                 where: {
                     id: req.params.id,
                 },
             });
+
             if (!product) {
                 return res
                     .status(404)
                     .send({ message: "Producto no encontrado" });
             }
+
             await product.update({
                 ...req.body,
-                filePath: req.file.originalname,
+                // filePath: req.file.originalname,
             });
 
-            await CategoryProduct.update(req.body, {
+            const categoryProduct = await CategoryProduct.findOne({
                 where: {
                     ProductId: req.params.id,
                 },
             });
 
+            if (!categoryProduct) {
+                return res
+                    .status(404)
+                    .send({ message: "Categoría del producto no encontrada" });
+            }
+
+            await categoryProduct.update({ ...req.body });
+
             res.send({
                 message: "Producto se ha actualizado con éxito",
-                file,
+                product,
             });
         } catch (error) {
             console.error(error);
