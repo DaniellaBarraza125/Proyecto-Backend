@@ -5,10 +5,10 @@ const storage = multer.diskStorage({
         cb(null, "./uploads");
     },
     filename: function (req, file, cb) {
-        cb(null, file.fieldname + "-" + Date.now());
+        const originalName = file.originalname;
+        cb(null, originalName);
     },
 });
-
 const upload = multer({ storage });
 
 const singlePic = upload.single("profile");

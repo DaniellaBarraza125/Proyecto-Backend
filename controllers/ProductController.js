@@ -9,7 +9,7 @@ const { Op } = require("sequelize");
 const ProductController = {
     async create(req, res, next) {
         try {
-            const file = req.file.path;
+            const file = req.file.originalname;
 
             const product = await Product.create({
                 ...req.body,
@@ -166,17 +166,32 @@ const ProductController = {
     },
     async update(req, res) {
         try {
-            await Product.update(req.body, {
+            const file = req.file;
+            const product = await Product.findOne({
                 where: {
                     id: req.params.id,
                 },
             });
+            if (!product) {
+                return res
+                    .status(404)
+                    .send({ message: "Producto no encontrado" });
+            }
+            await product.update({
+                ...req.body,
+                filePath: req.file.originalname,
+            });
+
             await CategoryProduct.update(req.body, {
                 where: {
                     ProductId: req.params.id,
                 },
             });
-            res.send({ message: "Producto se ha actualizado con éxito" });
+
+            res.send({
+                message: "Producto se ha actualizado con éxito",
+                file,
+            });
         } catch (error) {
             console.error(error);
             res.status(500).send(error);
