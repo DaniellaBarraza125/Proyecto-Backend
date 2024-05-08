@@ -9,6 +9,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use(express.static("uploads"));
+
 app.use("/reviews", require("./routes/reviews"));
 app.use("/users", require("./routes/users"));
 app.use("/orders", require("./routes/orders"));
